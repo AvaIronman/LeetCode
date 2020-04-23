@@ -1,0 +1,2 @@
+# LeetCode
+Through IntelliJ
