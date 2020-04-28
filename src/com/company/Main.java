@@ -13,6 +13,15 @@ public class Main {
          int[] A = {1,0,0,1,0,0,1,0};
          int N = 1000000000;
          int res = (-12)%5;
+         ListNode head = new ListNode(1);
+         head.next = new ListNode(2);
+         head.next.next = new ListNode(3);
+         head.next.next.next = new ListNode(4);
+         ListNode newHead = solution.swapPairs(head);
+         while(newHead != null){
+             System.out.print(newHead.val);
+             newHead = newHead.next;
+         }
 //         int res = (int) Math.pow(3,2);
 //        List<Integer> res = solution.powerfulIntegers(2,1,10);
          System.out.print(res);
@@ -20,42 +29,32 @@ public class Main {
     }
 
     public static class Solution {
-         public List<Integer> powerfulIntegers(int x, int y, int bound) {
-             HashSet<Integer> set = new HashSet<>();
-             int X, Y;
-             if(x == 0 || x == 1) X = 0;
-             else X = (int)(Math.log(bound)/Math.log(x));
-             if(y == 0 || y == 1) Y = 0;
-             else Y = (int)(Math.log(bound)/Math.log(y));
-             for(int i=0;i<=X;i++){
-                 for(int j=0;j<=Y;j++){
-                     int res = (int)(Math.pow(x,i)+Math.pow(y,j));
-                     if(res<=bound) set.add(res);
-                 }
-             }
-             List<Integer> res = new ArrayList<>(set);
-             return res;
-        }
-        public boolean noDuplicate(List<int[]> myList){
-             if(myList.size() <= 1) return true;
-             int[] last = myList.get(myList.size()-1);
-             for(int i=0;i<2;i++){
-                 int[] tmp = myList.get(i);
-                 int cnt = 0;
-                 for(int j=0;j<8;j++){
-                     if(tmp[j] != last[j])
-                         break;
-                     cnt++;
-                 }
-                 if(cnt == 8) return false;
-             }
-             return true;
-        }
 
+        public ListNode swapPairs(ListNode head) {
+            ListNode p = new ListNode(0);
+            if(head == null || head.next == null) return head;
+            p.next = head;
+            helper(p);
+            return p.next;
+        }
+        public void helper(ListNode p){
+            if(p!=null && p.next!=null && p.next.next !=null){
+                ListNode first = p.next;
+                ListNode second = p.next.next;
+                p.next = second;
+                first.next = second.next;
+                second.next = first;
+                helper(p.next.next);
+            }
+        }
 
     }
 
-
+    public static class ListNode {
+        int val;
+        com.company.ListNode next;
+        ListNode(int x) { val = x; }
+    }
     public static class TrieNode {
         TrieNode[] next;
         Boolean isEnd;
