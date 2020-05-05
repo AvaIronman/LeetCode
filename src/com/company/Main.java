@@ -5,6 +5,7 @@ import java.util.*;
 import static java.util.Arrays.asList;
 
 public class Main {
+
     public static void main(String[] args){
          System.out.print("Hi\n");
          Solution solution = new Solution();
@@ -12,16 +13,12 @@ public class Main {
                 asList(1, 2, 3));
          int[] A = {1,0,0,1,0,0,1,0};
          int N = 1000000000;
-         int res = (-12)%5;
          ListNode head = new ListNode(1);
          head.next = new ListNode(2);
          head.next.next = new ListNode(3);
          head.next.next.next = new ListNode(4);
-         ListNode newHead = solution.swapPairs(head);
-         while(newHead != null){
-             System.out.print(newHead.val);
-             newHead = newHead.next;
-         }
+         int res = solution.findComplement(13);
+
 //         int res = (int) Math.pow(3,2);
 //        List<Integer> res = solution.powerfulIntegers(2,1,10);
          System.out.print(res);
@@ -30,29 +27,24 @@ public class Main {
 
     public static class Solution {
 
-        public ListNode swapPairs(ListNode head) {
-            ListNode p = new ListNode(0);
-            if(head == null || head.next == null) return head;
-            p.next = head;
-            helper(p);
-            return p.next;
-        }
-        public void helper(ListNode p){
-            if(p!=null && p.next!=null && p.next.next !=null){
-                ListNode first = p.next;
-                ListNode second = p.next.next;
-                p.next = second;
-                first.next = second.next;
-                second.next = first;
-                helper(p.next.next);
+        public int findComplement(int num) {
+            int res=0, i=0, r=0;
+            while(num > 0){
+                r = num%2;
+                num = (int) (num/2);
+                r = r*(-1)+1;
+                res += r*Math.pow(2, i);
+                i++;
             }
+            return res;
         }
+
 
     }
 
     public static class ListNode {
         int val;
-        com.company.ListNode next;
+        ListNode next;
         ListNode(int x) { val = x; }
     }
     public static class TrieNode {

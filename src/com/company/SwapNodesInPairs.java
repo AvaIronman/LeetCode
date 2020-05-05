@@ -2,7 +2,7 @@ package com.company;
 
 import java.awt.*;
 
-public static class ListNode {
+class ListNode {
     int val;
     ListNode next;
     ListNode(int x) { val = x; }
